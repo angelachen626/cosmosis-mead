@@ -435,7 +435,8 @@ class LikelihoodPipeline(Pipeline):
         #pull out all the section names and likelihood names for later
 
         likelihood_names = self.options.get(PIPELINE_INI_SECTION,
-                                            "likelihoods", NO_LIKELIHOOD_NAMES)
+                                            "likelihoods",
+                                            fallback=NO_LIKELIHOOD_NAMES)
         if likelihood_names==NO_LIKELIHOOD_NAMES:
             self.likelihood_names = NO_LIKELIHOOD_NAMES
         else:
@@ -661,10 +662,9 @@ class LikelihoodPipeline(Pipeline):
             return np.array([param.limits[1] for
                          param in self.varied_params])
 
+    def build_starting_block(self, p, check_ranges=False, all_params=False):
+        u"""Assemble :class:`DataBlock` data based on parameter values in `p`, and return it.
 
-
-    def run_parameters(self, p, check_ranges=False, all_params=False):
-        u"""Assemble :class:`DataBlock` data based on parameter values in `p`, and run the pipeline on those data.
 
         If `check_ranges` is indicated, the function will return `None` if
         **any** of our parameters are out of their indicated range.
@@ -695,6 +695,23 @@ class LikelihoodPipeline(Pipeline):
             # add fixed parameters
             for param in self.fixed_params:
                 data[param.section, param.name] = param.start
+
+        return data
+
+
+    def run_parameters(self, p, check_ranges=False, all_params=False):
+        u"""Assemble :class:`DataBlock` data based on parameter values in `p`, and run the pipeline on those data.
+
+        If `check_ranges` is indicated, the function will return `None` if
+        **any** of our parameters are out of their indicated range.
+
+        If `all_params` is indicated, then the `p` run data will be
+        assumed to match all the pipeline parameter, including fixed ones.
+        Otherwise (the default) it should match the list ‘varied_params’, and all
+        of our ‘fixed’ parameters are added to the run-set.
+
+        """
+        data = self.build_starting_block(p, check_ranges=check_ranges, all_params=all_params)
 
         if self.run(data):
             return data

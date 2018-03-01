@@ -52,6 +52,9 @@ class MetropolisSampler(ParallelSampler):
     def worker(self):
         while not self.is_converged():
             self.execute()
+            if self.output:
+                self.output.flush()
+
 
     def execute(self):
         #Run the MCMC  sampler.
@@ -83,7 +86,7 @@ class MetropolisSampler(ParallelSampler):
         elif self.num_samples > 0 and \
                 self.pool is not None and \
                 self.Rconverge is not None:
-            R = self.analytics.gelman_rubin(quiet=self.pipeline.quiet)
+            R = self.analytics.gelman_rubin(quiet=False)
             R1 = abs(R - 1)
             return np.all(R1 <= self.Rconverge)
         else:
