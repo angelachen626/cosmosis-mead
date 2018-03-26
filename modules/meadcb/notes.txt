@@ -1,0 +1,43 @@
+outter loop - z
+inner k, to minimize halomod_init call
+
+1. loading cosmosis parameters, power spectrum
+	mead options: noisy, kmin, kmax, nk, numin, numax, zmin, zmax, nz, feedback
+2. main body of hmcode
+3. export nl power spectrum
+
+New feature: mead now does not require camb to start from z=0.0
+
+parameters needed to be initialized
+cosi%om_m 
+
+
+
+
+Test run:
+
+consistency camb halofit
+
+
+nk = 1000
+kmin=1e-4
+kmax=20.0
+zmin = 0.65
+zmax = 2.05
+nz = 101
+
+
+mead18
+real	0m11.050s
+user	0m10.731s
+sys	0m0.144s
+
+Mead
+real	0m29.747s
+user	0m29.452s
+sys	0m0.133s
+
+Halofit:
+real	0m5.878s
+user	0m5.561s
+sys	0m0.137s
