@@ -1,0 +1,3 @@
+nbin = 3
+nbin_a = 3
+nbin_b = 3

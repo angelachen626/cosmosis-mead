@@ -1,0 +1,2 @@
+cosmosis_order_p_k = u'z_cosmosis_order_k_h'
+linmult = 10.0

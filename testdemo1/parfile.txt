@@ -1,0 +1,3 @@
+[cosmological_parameters]
+h0 = 0.6 0.65
+omega_m = 0.25 0.3 0.35

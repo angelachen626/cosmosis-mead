@@ -1,0 +1,3 @@
+nbin = 4
+nbin_a = 4
+nbin_b = 4

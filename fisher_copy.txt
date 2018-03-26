@@ -1,0 +1,503 @@
+#cosmological_parameters--omega_m	cosmological_parameters--h0
+#sampler=fisher
+#n_varied=2
+#module_0=consistent_parameters 1.0
+#module_1=camb Jan15
+## CITE http://arxiv.org/abs/1201.3654
+## CITE http://arxiv.org/abs/astro-ph/9911177
+#module_2=mead 1.0
+## CITE http://arxiv.org/abs/1505.07833v1
+#module_3=growth_factor 1
+#module_4=extrapolate 1.0
+#module_5=load_nz_fits 1
+#module_6=photoz_bias 1
+#module_7=photoz_bias 1
+#module_8=no_bias 1
+#module_9=bias_neutrinos #name from ini file
+#module_10=linear_alignments 1.0
+## CITE MNRAS 424 3 1647 (2012)
+## CITE New J Phys 9 12 444 (2007)
+#module_11=ia_z_powerlap 2.0
+#module_12=project_2d 1.0
+#module_13=manipulatecl #name from ini file
+#module_14=bin_bias #name from ini file
+#module_15=add_intrinsic 1.0
+#module_16=shear_bias 1
+#module_17=cl_to_xi_nicaea 1.0
+## CITE http://arxiv.org/abs/0810.5129
+#module_18=cl_to_xi_nicaea 1.0
+## CITE http://arxiv.org/abs/0810.5129
+#module_19=cl_to_xi_nicaea 1.0
+## CITE http://arxiv.org/abs/0810.5129
+#module_20=cl_to_xi_nicaea 1.0
+## CITE http://arxiv.org/abs/0810.5129
+#module_21=2pt 1
+#step_size=0.02
+#tolerance=0.01
+#maxiter=10
+#use_numdifftools=False
+## START_OF_PARAMS_INI
+## [DEFAULT]
+## baseline_dir = /usr/local/cosmosis/modules/smallscale_wtheta/desp
+## planck_like_path = /usr/local/cosmosis/cosmosis-standard-library/likelihood/planck2015/data
+## 2pt_file = %(BASELINE_DIR)s/2pt_NG_nm.fits
+## 2pt_data_sets = xip xim gammat wtheta
+## 
+## [runtime]
+## sampler = fisher
+## root = /usr/local/cosmosis
+## 
+## [pmaxlike]
+## maxiter = 10000
+## tolerance = 0.1
+## output_ini = best_fit.ini
+## 
+## [multinest]
+## max_iterations = 50000
+## multinest_outfile_root = mn_
+## resume = F
+## live_points = 250
+## efficiency = 0.8
+## tolerance = 0.1
+## constant_efficiency = F
+## 
+## [test]
+## save_dir = %(BASELINE_DIR)s/fisher_output
+## fatal_errors = T
+## 
+## [fisher]
+## step_size = 0.02
+## 
+## [output]
+## filename = %(BASELINE_DIR)s/fisher.txt
+## format = text
+## 
+## [emcee]
+## burn = 0.3
+## walkers = 160
+## samples = 1000
+## nsteps = 5
+## 
+## [pipeline]
+## quiet = T
+## timing = F
+## debug = F
+## priors = ; %(BASELINE_DIR)s/priors.ini
+## modules = consistency camb mead growth extrapolate fits_nz lens_photoz_bias source_photoz_bias unbiased_galaxies bias_neutrinos IA ia_z_field pk_to_cl manipulatecl bin_bias add_intrinsic shear_m_bias 2pt_gal 2pt_gal_shear 2pt_shear 2pt 2pt_like
+## values = /usr/local/cosmosis/modules/smallscale_wtheta/desp/fisher_values.ini
+## likelihoods = fisher_sv
+## extra_output = cosmological_parameters/sigma_8 cosmological_parameters/omega_lambda
+## 
+## [manipulatecl]
+## file = modules/smallscale_wtheta/manipulate_pk/manipulate_cl.py
+## spectrum = galaxy_shear_cl
+## lmagnify = 1000.0
+## hight = 2.0
+## sigma = 500.0
+## specbin1 = 2
+## specbin2 = 2
+## 
+## [model_centered]
+## file = modules/smallscale_wtheta/manipulate_pk/model_centered.py
+## data_file = %(2PT_FILE)s
+## covmat_name = COVMAT
+## specname = wtheta
+## save_plot_to = plots_cl1000
+## data_sets = %(2PT_DATA_SETS)s
+## make_covariance = F
+## 
+## [modifypk]
+## file = modules/smallscale_wtheta/manipulate_pk/manipulate_pk.py
+## linmult = 0.5
+## nlmult = 0.5
+## overwrite = True
+## 
+## [mead]
+## file = cosmosis-standard-library/structure/mead/mead_interface.so
+## nk = 700
+## kmin = 1e-5
+## kmax = 10.0
+## zmin = 0.0
+## zmax = 4.0
+## nz = 401
+## 
+## [2pt_like]
+## file = cosmosis-standard-library/likelihood/2pt/2pt_like.py
+## like_name = fisher_sv
+## save_plot_to = %(BASELINE_DIR)s/plots_mead
+## data_file = %(2PT_FILE)s
+## data_sets = %(2PT_DATA_SETS)s
+## make_covariance = F
+## covmat_name = COVMAT
+## 
+## [2ptlike_large_scales]
+## file = cosmosis-standard-library/likelihood/2pt/2pt_like.py
+## data_file = %(2PT_FILE)s
+## data_sets = %(2PT_DATA_SETS)s
+## make_covariance = F
+## covmat_name = COVMAT
+## angle_range_xip_1_1 = 20. 250.0
+## angle_range_xip_2_1 = 20. 250.0
+## angle_range_xip_3_1 = 20. 250.0
+## angle_range_xip_4_1 = 20. 250.0
+## angle_range_xip_2_2 = 20. 250.0
+## angle_range_xip_3_2 = 20. 250.0
+## angle_range_xip_4_2 = 20. 250.0
+## angle_range_xip_3_3 = 20. 250.0
+## angle_range_xip_4_3 = 20. 250.0
+## angle_range_xip_4_4 = 20. 250.0
+## angle_range_xim_1_1 = 150. 250.0
+## angle_range_xim_2_1 = 150. 250.0
+## angle_range_xim_3_1 = 150. 250.0
+## angle_range_xim_4_1 = 150. 250.0
+## angle_range_xim_2_2 = 150. 250.0
+## angle_range_xim_3_2 = 150. 250.0
+## angle_range_xim_4_2 = 150. 250.0
+## angle_range_xim_3_3 = 150. 250.0
+## angle_range_xim_3_4 = 150. 250.0
+## angle_range_xim_4_4 = 150. 250.0
+## angle_range_gammat_1_1 = 65.0 250.0
+## angle_range_gammat_1_2 = 65.0 250.0
+## angle_range_gammat_1_3 = 65.0 250.0
+## angle_range_gammat_1_4 = 65.0 250.0
+## angle_range_gammat_1_5 = 65.0 250.0
+## angle_range_gammat_2_1 = 65.0 250.0
+## angle_range_gammat_2_2 = 65.0 250.0
+## angle_range_gammat_2_3 = 65.0 250.0
+## angle_range_gammat_2_4 = 65.0 250.0
+## angle_range_gammat_2_5 = 65.0 250.0
+## angle_range_gammat_3_1 = 65.0 250.0
+## angle_range_gammat_3_2 = 65.0 250.0
+## angle_range_gammat_3_3 = 65.0 250.0
+## angle_range_gammat_3_4 = 65.0 250.0
+## angle_range_gammat_3_5 = 65.0 250.0
+## angle_range_gammat_4_1 = 65.0 250.0
+## angle_range_gammat_4_2 = 65.0 250.0
+## angle_range_gammat_4_3 = 65.0 250.0
+## angle_range_gammat_4_4 = 65.0 250.0
+## angle_range_gammat_4_5 = 65.0 250.0
+## angle_range_gammat_5_1 = 65.0 250.0
+## angle_range_gammat_5_2 = 65.0 250.0
+## angle_range_gammat_5_3 = 65.0 250.0
+## angle_range_gammat_5_4 = 65.0 250.0
+## angle_range_gammat_5_5 = 65.0 250.0
+## angle_range_wtheta_1_1 = 50.0 250.0
+## angle_range_wtheta_2_2 = 50.0 250.0
+## angle_range_wtheta_3_3 = 50.0 250.0
+## angle_range_wtheta_4_4 = 50.0 250.0
+## angle_range_wtheta_5_5 = 50.0 250.0
+## 
+## [bias]
+## file = /usr/local/cosmosis/cosmosis-des-library/tcp/simple_bias/bias.py
+## 
+## [IA]
+## file = cosmosis-standard-library/intrinsic_alignments/la_model/linear_alignments_interface.py
+## do_galaxy_intrinsic = T
+## method = bk_corrected
+## 
+## [add_intrinsic]
+## file = cosmosis-standard-library/shear/add_intrinsic/add_intrinsic.py
+## shear-shear = T
+## perbin = F
+## position-shear = T
+## 
+## [stitch]
+## file = /usr/local/cosmosis/cosmosis-des-library/IAs/stitch/stitch_ia.py
+## name_1 = red
+## name_2 = blue
+## 
+## [consistency]
+## file = cosmosis-standard-library/utility/consistency/consistency_interface.py
+## 
+## [camb]
+## file = cosmosis-standard-library/boltzmann/camb/camb.so
+## mode = all
+## lmax = 2500
+## feedback = 0
+## kmin = 1e-5
+## kmax = 10.0
+## nk = 200
+## 
+## [camb_planck]
+## file = cosmosis-standard-library/boltzmann/camb/camb.so
+## mode = all
+## lmax = 2650
+## feedback = 1
+## kmin = 1e-5
+## kmax = 10.0
+## nk = 200
+## do_lensing = T
+## do_tensors = T
+## do_nonlinear = T
+## high_ell_template = /usr/local/cosmosis/cosmosis-standard-library/boltzmann/camb/camb_Jan15/HighLExtrapTemplate_lenspotentialCls.dat
+## accuracy_boost = 1.1
+## high_accuracy_default = T
+## 
+## [extrapolate]
+## file = cosmosis-standard-library/boltzmann/extrapolate/extrapolate_power.py
+## kmax = 500.
+## 
+## [sigma8_rescale]
+## file = cosmosis-standard-library/utility/sample_sigma8/sigma8_rescale.py
+## 
+## [halofit]
+## file = cosmosis-standard-library/boltzmann/halofit_takahashi/halofit_interface.so
+## nk = 700
+## 
+## [unbiased_galaxies]
+## file = cosmosis-standard-library/bias/no_bias/no_bias.py
+## 
+## [pk_to_cl]
+## file = cosmosis-standard-library/structure/projection/project_2d.py
+## ell_min = 0.1
+## ell_max = 5.0e5
+## n_ell = 400
+## position-shear = lens-source
+## shear-shear = source-source
+## position-position = lens-lens
+## intrinsic-intrinsic = source-source
+## shear-intrinsic = source-source
+## position-intrinsic = lens-source
+## verbose = F
+## get_kernel_peaks = F
+## 
+## [2pt]
+## file = cosmosis-standard-library/shear/cl_to_xi_nicaea/nicaea_interface.so
+## 
+## [save_2pt]
+## file = cosmosis-standard-library/likelihood/2pt/save_2pt.py
+## theta_min = 2.5
+## theta_max = 250.0
+## n_theta = 20
+## real_space = T
+## make_covariance = F
+	; but it only works for Cl's
+## shear_nz_name = source
+## position_nz_name = lens
+## filename = simulated_y1_fiducial_v1.fits
+## clobber = T
+## number_density_shear_bin = 2.0  2.0  2.0  2.0  2.0
+## number_density_lss_bin = 2.0  2.0  2.0
+## sigma_e_bin = 0.2  0.2  0.2  0.2  0.2
+## survey_area = 1500.0
+## cut_wtheta = 2,1 3,1 3,2 4,1 4,2 4,3 5,1 5,2 5,3 5,4
+## 
+## [ia_z_field]
+## file = /usr/local/cosmosis/cosmosis-standard-library/intrinsic_alignments/z_powerlaw/ia_z_powerlaw.py
+## do_galaxy_intrinsic = T
+## 
+## [save_c_ell_fits]
+## file = cosmosis-des-library/tcp/2pt_like/save_2pt.py
+## ell_min = 100.0
+## ell_max = 2000.0
+## n_ell = 10
+## shear_nz_name = nz_source
+## position_nz_name = nz_lens
+## filename = internal_simulation.fits
+## clobber = T
+## number_density_shear_bin = 2.0  2.0  2.0  2.0  2.0
+## number_density_lss_bin = 2.0  2.0  2.0
+## sigma_e_bin = 0.2  0.2  0.2  0.2  0.2
+## survey_area = 1500.0
+## 
+## [bin_bias]
+## file = cosmosis-standard-library/bias/binwise_bias/bin_bias.py
+## perbin = T
+## 
+## [load_nz_source]
+## file = cosmosis-standard-library/number_density/load_nz/load_nz.py
+## filepath = %(BASELINE_DIR)s/../../comparison/comparison_details_v1/source_4.nz.txt
+## output_section = nz_source
+## upsampling = 1
+## histogram = T
+## 
+## [load_nz_lens]
+## file = cosmosis-standard-library/number_density/load_nz/load_nz.py
+## output_section = nz_lens
+## filepath = %(BASELINE_DIR)s/../../comparison/comparison_details_v1/lens_5.nz.txt
+## upsampling = 1
+## histogram = T
+## 
+## [fits_nz]
+## file = cosmosis-standard-library/number_density/load_nz_fits/load_nz_fits.py
+## nz_file = %(2PT_FILE)s
+## data_sets = source lens
+## prefix_section = T
+## prefix_extension = F
+## 
+## [2pt_shear]
+## file = cosmosis-standard-library/shear/cl_to_xi_nicaea/nicaea_interface.so
+## corr_type = 0
+## 
+## [2pt_gal]
+## file = cosmosis-standard-library/shear/cl_to_xi_nicaea/nicaea_interface.so
+## corr_type = 1
+## 
+## [2pt_gal_shear]
+## file = cosmosis-standard-library/shear/cl_to_xi_nicaea/nicaea_interface.so
+## corr_type = 2
+## 
+## [shear_m_bias]
+## file = cosmosis-standard-library/shear/shear_bias/shear_m_bias.py
+## m_per_bin = True
+## verbose = F
+## 
+## [source_photoz_bias]
+## file = cosmosis-standard-library/number_density/photoz_bias/photoz_bias.py
+## mode = additive
+## sample = nz_source
+## bias_section = wl_photoz_errors
+## interpolation = linear
+## 
+## [lens_photoz_bias]
+## file = cosmosis-standard-library/number_density/photoz_bias/photoz_bias.py
+## mode = additive
+## sample = nz_lens
+## bias_section = lens_photoz_errors
+## interpolation = linear
+## 
+## [growth]
+## file = cosmosis-standard-library/structure/growth_factor/interface.so
+## zmin = 0.
+## zmax = 4.
+## nz = 401
+## 
+## [bias_neutrinos]
+## file = cosmosis-des-library/lss/braganca-neutrino-bias/interface.so
+## feedback = true
+## linear_growth_eps_abs = 0.0
+## linear_growth_eps_rel = 1.0e-6
+## linear_growth_rk_type = RK45
+## linear_growth_spline_zmin = 0.0
+## linear_growth_spline_zmax = 1.00
+## linear_growth_spline_delta_z = 0.02
+## 
+## [multiply_pk]
+## file = cosmosis-des-library/lss/braganca-neutrino-bias/bias_pks.py
+## 
+## [planck_tt_highell]
+## file = /usr/local/cosmosis/cosmosis-standard-library/likelihood/planck2015/planck_interface.so
+## data_1 = %(planck_like_path)s/plik_lite_v18_TT.clik
+## 
+## [planck]
+## file = /usr/local/cosmosis/cosmosis-standard-library/likelihood/planck2015/planck_interface.so
+## data_1 = %(planck_like_path)s/plik_lite_v18_TTTEEE.clik
+## data_2 = %(planck_like_path)s/commander_rc2_v1.1_l2_29_B.clik
+## 
+## [planck_lensing]
+## file = /usr/local/cosmosis/cosmosis-standard-library/likelihood/planck2015/planck_interface.so
+## lensing_1 = %(planck_like_path)s/smica_g30_ftl_full_pttptt.clik_lensing
+## 
+## [planck_all]
+## file = /usr/local/cosmosis/cosmosis-standard-library/likelihood/planck2015/planck_interface.so
+## data_1 = %(planck_like_path)s/plik_lite_v18_TTTEEE.clik
+## data_2 = %(planck_like_path)s/commander_rc2_v1.1_l2_29_B.clik
+## lensing_1 = %(planck_like_path)s/smica_g30_ftl_full_pttptt.clik_lensing
+## 
+## [boss_dr12]
+## file = /usr/local/cosmosis/cosmosis-des-library/external/bao/boss_dr12/boss_dr12.py
+## mode = 0
+## 
+## [6dfgs]
+## file = /usr/local/cosmosis/cosmosis-des-library/external/bao/6dfgs/6dfgs.py
+## mode = 0
+## 
+## [mgs_bao]
+## file = /usr/local/cosmosis/cosmosis-des-library/external/bao/mgs_bao/mgs_bao.py
+## 
+## [jla]
+## file = /usr/local/cosmosis/cosmosis-standard-library/supernovae/jla_v3/jla.so
+## data_dir = /usr/local/cosmosis/cosmosis-standard-library/supernovae/jla_v3/data
+## data_file = jla_lcparams.txt
+## scriptmcut = 10.0
+## mag_covmat_file = jla_v0_covmatrix.dat
+## stretch_covmat_file = jla_va_covmatrix.dat
+## colour_covmat_file = jla_vb_covmatrix.dat
+## mag_stretch_covmat_file = jla_v0a_covmatrix.dat
+## mag_colour_covmat_file = jla_v0b_covmatrix.dat
+## stretch_colour_covmat_file = jla_vab_covmatrix.dat
+## 
+## [riess16]
+## file = /usr/local/cosmosis/cosmosis-standard-library/likelihood/riess16/riess16.py
+## 
+## END_OF_PARAMS_INI
+## START_OF_VALUES_INI
+## [cosmological_parameters]
+## omega_m = 0.1      0.295         0.9
+## h0 = 0.55      0.6881        0.9
+## omega_b = 0.0468
+## n_s = 0.9676
+## a_s = 2.260574e-09
+## omnuh2 = 0.0006155
+## w = -1.0
+## massive_nu = 1
+## massless_nu = 2.046
+## omega_k = 0.0
+## tau = 0.08
+## wa = 0.0
+## yhe = 0.245341
+## 
+## [bin_bias]
+## b1 = 1.45
+## b2 = 1.55
+## b3 = 1.65
+## b4 = 1.8
+## b5 = 2.0
+## 
+## [shear_calibration_parameters]
+## m1 = 0.0
+## m2 = 0.0
+## m3 = 0.0
+## m4 = 0.0
+## 
+## [intrinsic_alignment_parameters]
+## a = 0.0
+## alpha = 0.0
+## z0 = 0.62
+## 
+## [wl_photoz_errors]
+## bias_1 = -0.0037
+## bias_2 = -0.0171
+## bias_3 = 0.0200
+## bias_4 = 0.0224
+## 
+## [lens_photoz_errors]
+## bias_1 = 0.0
+## bias_2 = 0.0
+## bias_3 = 0.0
+## bias_4 = 0.0
+## bias_5 = 0.0
+## 
+## [halo_model_parameters]
+## a = 3.13
+## eta_0 = 0.603
+## 
+## END_OF_VALUES_INI
+## START_OF_PRIORS_INI
+## [wl_photoz_errors]
+## bias_1 = gaussian -0.0037 0.0177
+## bias_2 = gaussian -0.0171 0.0150
+## bias_3 = gaussian  0.0200 0.0138
+## bias_4 = gaussian  0.0224 0.0215
+## 
+## [shear_calibration_parameters]
+## m1 = gaussian 0.0 0.021
+## m2 = gaussian 0.0 0.021
+## m3 = gaussian 0.0 0.021
+## m4 = gaussian 0.0 0.021
+## 
+## [lens_photoz_errors]
+## bias_1 = gaussian 0.0 0.01
+## bias_2 = gaussian 0.0 0.01
+## bias_3 = gaussian 0.0 0.01
+## bias_4 = gaussian 0.0 0.01
+## bias_5 = gaussian 0.0 0.01
+## 
+## [planck]
+## a_planck = gaussian 1.0 0.0025
+## 
+## END_OF_PRIORS_INI
+#mu_0=0.295
+#mu_1=0.6881
+1263.40617105	-51.4116073478
+-51.4116073478	18.5290572103
